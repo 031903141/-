@@ -1,0 +1,42 @@
+int main()
+{
+  initgraph(640, 480);
+  init();  //初始化游戏
+  while (1)
+  {
+    Select();  //功能选择
+  }
+  closegraph();
+  return 0;
+}
+
+//初始化函数init()
+void init（）
+{
+  ...
+}
+
+//开始新游戏NewGame()
+void NewGame()
+{
+  ...
+}
+
+//获取新方块NewBlock
+void NewBlock()
+{
+  ...
+}
+
+//绘制小方块DrawUnit()
+void DrawUnit(int x, int y, COLORREF color, FLAG flag)
+{
+  ...
+}
+
+//功能选择Select()
+//init() 初始化完成之后就进入到功能选择的循环阶段了
+void Select()
+{
+  ...
+}

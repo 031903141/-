@@ -1,0 +1,88 @@
+//左移OnRight()
+void OnRight()
+{
+  BLOCKINFO temp = g_CurBlock;
+  temp.x++;
+  if (CheckBlock(temp))  //是否可以移动
+  {
+    DrawBlock(g_CurBlock, CLEAR);
+    g_CurBlock.x++;
+    DrawBlock(g_CurBlock);
+  }
+}
+
+//检查方块位置是否合法CheckBlock()
+bool CheckBlock(BLOCKINFO block)
+{
+  int b = g_Blocks[block.id].dir[block.dir];
+  int x, y;
+  for (int i = 0; i < 16; i++, b <<= 1)
+    if (b & 0x8000)
+    {
+      x = block.x + i % 4;
+      y = block.y - i / 4;
+      if ((x < 0) || (x >= WIDTH) || (y < 0))
+        return false;
+
+      if ((y < HEIGHT) && (g_map[y][x]))
+        return false;
+    }
+  return true;
+}
+
+//下落OnDown()
+void OnDown()
+{
+  BLOCKINFO temp = g_CurBlock;
+  temp.y--;
+  if (CheckBlock(temp))
+  {
+    DrawBlock(g_CurBlock, CLEAR);
+    g_CurBlock.y--;
+    DrawBlock(g_CurBlock);
+  }
+  else
+    OnSink();  // 不可下移时，执行下沉操作
+}
+
+//下沉OnSink()
+//这个下沉函数是俄罗斯方块的除原理之外的又一个重点，也是难点
+void OnSink()
+{
+  ...
+ }
+ 
+ //判断是否可以旋转Rotate()
+void Rotate(int dx)
+{
+  // 旋转
+  DrawBlock(g_CurBlock, CLEAR);
+  g_CurBlock.dir++;
+  g_CurBlock.x += dx;
+  DrawBlock(g_CurBlock);
+}
+
+//开始旋转OnRotate()
+void OnRotate()
+{
+  //获取可以旋转的 x 偏移量
+  int dx;
+  BLOCKINFO tmp = g_CurBlock;
+  tmp.dir = (++tmp.dir) % 4;  //限制方向在0到3之间
+  if (CheckBlock(tmp)) 
+  { 
+    dx = 0;    Rotate(dx); return;
+  }
+  tmp.x = g_CurBlock.x - 1;  if (CheckBlock(tmp)) { 
+    dx = -1;  Rotate(dx); return;
+  }
+  tmp.x = g_CurBlock.x + 1;  if (CheckBlock(tmp)) { 
+    dx = 1;    Rotate(dx); return;
+  }
+  tmp.x = g_CurBlock.x - 2;  if (CheckBlock(tmp)) { 
+    dx = -2;  Rotate(dx); return;
+  }
+  tmp.x = g_CurBlock.x + 2;  if (CheckBlock(tmp)) { 
+    dx = 2;    Rotate(dx); return;
+  }
+}

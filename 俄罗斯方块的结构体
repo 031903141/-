@@ -1,0 +1,54 @@
+//方块结构体
+struct BLOCK
+{
+  int dir[4];
+  COLORREF color;
+}g_Blocks[7] = {
+  { 0x0f00, 0x4444, 0x0f00, 0x4444, RED },  //I
+  { 0x0660, 0x0660, 0x0660, 0x0660, BLUE },  //口
+  { 0x4460,0x02E0,0x0622,0x0740,BLUE },    //L
+  { 0x2260,0x0E20,0x0644,0x0470,RED },    //反L
+  { 0x0c60,0x2640,0x0c60,0x2640,YELLOW },    //Z
+  { 0x0360, 0x4620, 0x0360, 0x4620, YELLOW },  //反z
+  { 0x4E00, 0X4C40, 0x0E40,0X4640, BLUE }    //T
+
+//方块信息
+struct BLOCKINFO
+{
+  int id;    //第几个方块
+  int dir;  //是方块中的第几个方向 0 1 2 3
+  char x, y;    //当前格子的位置在哪里
+}g_CurBlock, g_NextBlock;
+
+//图像下落中的状态
+enum FLAG {
+  SHOW,//正常显示
+  CLEAR,//擦除
+  FIX//固定
+};
+
+//图像下落中的状态
+enum FLAG {
+  SHOW,//正常显示
+  CLEAR,//擦除
+  FIX//固定
+};
+
+//需要的功能
+enum OPERATE
+{
+  ROTATE  //旋转  ↑键
+  ,LEFT  //左移  左键
+  ,RIGHT  //右移  右键
+  ,DOWN  //下移  ↓键
+  ,SINK  //下沉  空格键
+  ,QUIT  //退出  Esc键
+  ,STOP  //暂停  o键
+};
+
+//定义地图和成绩
+#define WIDTH 10  //地图的宽
+#define HEIGHT 22  //地图的高
+#define PIX 20  //像素
+int g_map[HEIGHT][WIDTH] = { 0 };
+int g_score;
